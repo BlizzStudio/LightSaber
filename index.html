@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Menu with Spark Effect</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1a202c; /* Dark background */
+        }
+        .menu {
+            position: relative;
+            text-align: center;
+            color: white;
+            z-index: 10;
+        }
+        .spark {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ffcc00, transparent);
+            pointer-events: none;
+            animation: spark-animation 1s infinite;
+        }
+        @keyframes spark-animation {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="menu">
+    <h1 class="text-4xl mb-6">Light Saber Sim :)</h1>
+    <a href="game.html"><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Play</button></a>
+  
+    <div class="spark" id="spark"></div>
+</div>
+
+<script>
+    const sparkElement = document.getElementById('spark');
+
+    function createSpark() {
+        const spark = document.createElement('div');
+        spark.classList.add('spark');
+        
+        // Random position within the menu
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        spark.style.left = `${x}%`;
+        spark.style.top = `${y}%`;
+
+        document.body.appendChild(spark);
+
+        // Remove the spark after animation
+        setTimeout(() => {
+            spark.remove();
+        }, 1000); // Match this with animation duration
+    }
+
+    // Create a spark every 500ms
+    setInterval(createSpark, 500);
+</script>
+
+</body>
+</html>
